@@ -40,15 +40,17 @@ namespace GME1011A3
                 //TODO: each baddie should have 50% chance of being a goblin, 50% chance of
                 //being a skellie. A skellie should have random health between 25 and 30, and 0 armour (remember
                 //skellie armour is 0 anyway)
+                int type = rng.Next(0, 4);
 
-                if (rng.Next(0, 2) == 0)
+                if (type == 0)
                 {
                     baddies.Add(new Goblin(rng.Next(30, 35), rng.Next(1, 5), rng.Next(1, 10)));
                 }
-                else
+                else if (type == 1)
                 {
                     baddies.Add(new Skellie(rng.Next(25, 31), 0));
                 }
+                else baddies.Add(new Alduin(rng.Next(40, 50), rng.Next(5, 15)));
             
             
             }
@@ -133,6 +135,12 @@ namespace GME1011A3
                             baddieDamage = gb.GoblinBite();
                             baddieAttackName = "Bite";
                         }
+                        else if (baddies[indexOfEnemy] is Alduin al)
+                        {
+                            baddieDamage = 0;
+                            baddieAttackName = "Resurrection";
+                            baddies.Add(al.Resurrection());
+                        }
                         else
                         { 
                             baddieDamage = baddies[indexOfEnemy].DealDamage();
@@ -140,9 +148,11 @@ namespace GME1011A3
                     }
                     else
                     {
-                    baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                        baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
                     }
-                    Console.WriteLine($"Enemy #{indexOfEnemy+1} deals {baddieDamage} damage with their {baddieAttackName} attack!");
+
+                    if (baddieAttackName != "Resurrection") Console.WriteLine($"Enemy #{indexOfEnemy + 1} deals {baddieDamage} damage with their {baddieAttackName} attack!");
+                    else Console.WriteLine($"Alduin has resurrected a {baddies.Last()}!");
                     hero.TakeDamage(baddieDamage); //hero takes damage
 
 

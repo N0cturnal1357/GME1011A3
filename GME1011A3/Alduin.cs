@@ -10,7 +10,6 @@ namespace GME1011A3
     {
         public Alduin(int health, int armour) : base(health, armour)
         {
-
         }
         public override int DealDamage()
         {
@@ -19,7 +18,7 @@ namespace GME1011A3
         }
 
 
-        //Goblin special
+        //Resurrects a new enemy at the end of the list
         public Minion Resurrection()
         {
             Console.WriteLine("**SLEN TIID VO**");
@@ -33,6 +32,11 @@ namespace GME1011A3
             else baddie = (new Skellie(rng.Next(25, 31), 0));
 
             return baddie;
+        }
+
+        public override string ToString()
+        {
+            return "Alduin[" + base.ToString() + "]";
         }
     }
 }
