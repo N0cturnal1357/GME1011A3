@@ -6,15 +6,28 @@ namespace GME1011A3
     {
         static void Main(string[] args)
         {
+            //set fighter info
+            Console.WriteLine("Create your hero!");
+
+            Console.WriteLine("Health:");
+            int health = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Name:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Strength:");
+            int strength = int.Parse(Console.ReadLine());
+
 
             //Epic battle goes here :)
             Random rng = new Random();
 
-            Fighter hero = new Fighter(100, "Aaron", 5); //TODO: Get these arguments from the user - health, name, strength
+
+            Fighter hero = new Fighter(health, name, strength); //TODO: Get these arguments from the user - health, name, strength
             Console.WriteLine("Here is our heroic hero: " + hero + "\n\n");
 
-
-            int numBaddies = 5; //TODO: Get number of baddies from the user
+            Console.WriteLine($"Now, how many enemies will {name} fight?");
+            int numBaddies = int.Parse(Console.ReadLine()); //TODO: Get number of baddies from the user
             int numAliveBaddies = numBaddies;
 
 
