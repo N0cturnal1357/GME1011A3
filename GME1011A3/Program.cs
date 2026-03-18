@@ -75,18 +75,24 @@ namespace GME1011A3
                 }
 
                 //hero deals damage first
+                string attackName = "Slash";
                 int heroDamage;
                 int attackType = rng.Next(0, 101);
                 if (attackType <= 33)
                 {
                     heroDamage = hero.Berserk();
+                    attackName = "Berserk";
 
-                    if (heroDamage == 0) hero.DealDamage();
+                    if (heroDamage == 0)
+                    {
+                        hero.DealDamage();
+                        attackName = "Slash";
+                    }
                 }
                 else heroDamage = hero.DealDamage();
 
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
-                Console.WriteLine("Hero deals " + heroDamage + " heroic damage."); 
+                Console.WriteLine($"Hero deals {heroDamage} heroic damage with their {attackName} attack!"); 
                 baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
 
 
@@ -112,6 +118,7 @@ namespace GME1011A3
                 }
                 else //baddie survived, now attacks the hero
                 {
+                    string baddieAttackName = "Scratch";
                     int baddieDamage;
                     int baddieAttackType = rng.Next(0, 101);
                     if (baddieAttackType <= 33)
@@ -119,13 +126,15 @@ namespace GME1011A3
                         if (baddies[indexOfEnemy] is Skellie sk)
                         {
                             baddieDamage = sk.SkellieRattle();
+                            baddieAttackName = "Rattle";
                         }
                         else if (baddies[indexOfEnemy] is Goblin gb)
                         {
                             baddieDamage = gb.GoblinBite();
+                            baddieAttackName = "Bite";
                         }
                         else
-                        {
+                        { 
                             baddieDamage = baddies[indexOfEnemy].DealDamage();
                         }
                     }
@@ -133,7 +142,7 @@ namespace GME1011A3
                     {
                     baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
                     }
-                    Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
+                    Console.WriteLine($"Enemy #{indexOfEnemy+1} deals {baddieDamage} damage with their {baddieAttackName} attack!");
                     hero.TakeDamage(baddieDamage); //hero takes damage
 
 
